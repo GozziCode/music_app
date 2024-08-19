@@ -23,8 +23,8 @@ class RecommendedCell extends StatelessWidget {
             borderRadius: BorderRadius.circular(9),
             child: Image.asset(
               mObj['image']!,
-              width: size.width * .40,
-              height: size.height * .13,
+              width: size.width * .46,
+              height: size.height * .15,
               fit: BoxFit.contain,
             ),
           ),

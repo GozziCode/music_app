@@ -24,6 +24,7 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: customAppBar(),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
           child: Column(
@@ -33,9 +34,10 @@ class _HomeViewState extends State<HomeView> {
                 title: 'Hot Recommendation',
               ),
               SizedBox(
-                height: size.height * .24,
+                height: size.height * .20,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
+                  physics: const BouncingScrollPhysics(),
                   itemCount: homeVM.hostRecommendedArr.length,
                   itemBuilder: (context, index) {
                     var mObj = homeVM.hostRecommendedArr[index];
@@ -54,9 +56,10 @@ class _HomeViewState extends State<HomeView> {
                 title: 'Playlist',
               ),
               SizedBox(
-                height: size.height * .24,
+                height: size.height * .21,
                 child: ListView.builder(
                   padding: EdgeInsets.zero,
+                  physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemCount: homeVM.playListArr.length,
                   itemBuilder: (context, index) {
