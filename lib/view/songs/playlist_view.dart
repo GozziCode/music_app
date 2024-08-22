@@ -56,7 +56,6 @@ class _PlaylistViewState extends State<PlaylistView> {
                 height: 150,
                 child: Obx(
                   () => ListView.builder(
-                    // padding: const EdgeInsets.symmetric(horizontal: 10),
                     scrollDirection: Axis.horizontal,
                     itemCount: plVM.myPlaylistArr.length,
                     itemBuilder: (context, index) {

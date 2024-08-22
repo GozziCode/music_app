@@ -5,6 +5,7 @@ import 'package:music_app/view/songs/playlist_view.dart';
 
 import '../../common/color_extension.dart';
 import '../../view_model/splash_view_model.dart';
+import 'albums_view.dart';
 
 class SongsView extends StatefulWidget {
   const SongsView({super.key});
@@ -76,7 +77,7 @@ class _SongsViewState extends State<SongsView>
                 controller: controller,
                 indicatorColor: TColor.focus,
                 indicatorPadding: const EdgeInsets.symmetric(horizontal: 20),
-                // isScrollable: true,
+                isScrollable: true,
                 labelStyle: TextStyle(
                     color: TColor.primaryText,
                     fontSize: 15,
@@ -107,9 +108,7 @@ class _SongsViewState extends State<SongsView>
               child: TabBarView(controller: controller, children: const [
             AllSongsView(),
             PlaylistView(),
-            Center(
-              child: Text('Albums'),
-            ),
+            AlbumsView(),
             Center(
               child: Text('Artist'),
             ),
