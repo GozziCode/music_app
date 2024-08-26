@@ -26,7 +26,7 @@ class _MainTabviewState extends State<MainTabview>
   void initState() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(systemNavigationBarColor: TColor.drawerBg
+        SystemUiOverlayStyle(systemNavigationBarColor: TColor.drawerBg,
             //  Color.fromARGB(255, 17, 20, 33),
             ));
     tabController = TabController(length: 3, vsync: this);
