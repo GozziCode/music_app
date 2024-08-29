@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:music_app/view/main_player/main_player_view.dart';
 import 'package:music_app/view_model/all_songs_view_model.dart';
 
 import 'all_songs_row.dart';
@@ -26,7 +27,9 @@ class _AllSongsViewState extends State<AllSongsView> {
             return AllSongRow(
               sObj: sObj,
               onPressed: () {},
-              onPressPlay: () {},
+              onPressPlay: () {
+                Get.to(() => const MainPlayerView());
+              },
             );
           },
         ),

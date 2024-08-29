@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_app/view/songs/all_songs_view.dart';
+import 'package:music_app/view/songs/artists_view.dart';
+import 'package:music_app/view/songs/genre_view.dart';
 import 'package:music_app/view/songs/playlist_view.dart';
 
 import '../../common/color_extension.dart';
@@ -76,10 +78,11 @@ class _SongsViewState extends State<SongsView>
             child: TabBar(
                 controller: controller,
                 indicatorColor: TColor.focus,
-                indicatorPadding: const EdgeInsets.symmetric(horizontal: 20),
+                unselectedLabelColor: TColor.primaryText,
+                // indicatorPadding: const EdgeInsets.symmetric(horizontal: 20),
                 isScrollable: true,
                 labelStyle: TextStyle(
-                    color: TColor.primaryText,
+                    color: TColor.focus,
                     fontSize: 15,
                     fontWeight: FontWeight.w600),
                 unselectedLabelStyle: TextStyle(
@@ -109,12 +112,8 @@ class _SongsViewState extends State<SongsView>
             AllSongsView(),
             PlaylistView(),
             AlbumsView(),
-            Center(
-              child: Text('Artist'),
-            ),
-            Center(
-              child: Text('Genre'),
-            ),
+            ArtistsView(),
+            GenreView(),
           ])),
         ],
       ),

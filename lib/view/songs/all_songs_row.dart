@@ -50,7 +50,6 @@ class AllSongRow extends StatelessWidget {
             const SizedBox(
               width: 15,
             ),
-
             Expanded(
                 child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,13 +73,12 @@ class AllSongRow extends StatelessWidget {
               ],
             )),
             IconButton(
-                onPressed: () {},
+                onPressed: onPressPlay,
                 icon: Image.asset(
                   'assets/img/play_btn.png',
                   width: 25,
                   height: 25,
                 )),
-            
           ],
         ),
         Divider(

@@ -34,7 +34,7 @@ class _AlbumsViewState extends State<AlbumsView> {
             var aObj = albumVM.allList[index];
             return AlbumCell(
               onPressed: () {
-                Get.to(() => AlbumDetailsView());
+                Get.to(() => const AlbumDetailsView());
               },
               onPressedMenu: (selectedIndex) {},
               aObj: aObj,

@@ -34,7 +34,7 @@ class _HomeViewState extends State<HomeView> {
                 title: 'Hot Recommendation',
               ),
               SizedBox(
-                height: size.height * .20,
+                height: size.height * .21,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
@@ -56,7 +56,7 @@ class _HomeViewState extends State<HomeView> {
                 title: 'Playlist',
               ),
               SizedBox(
-                height: size.height * .21,
+                height: size.height * .22,
                 child: ListView.builder(
                   padding: EdgeInsets.zero,
                   physics: const BouncingScrollPhysics(),

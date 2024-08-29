@@ -67,8 +67,7 @@ class _AlbumDetailsViewState extends State<AlbumDetailsView> {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-            child: Padding(
+        body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(children: [
             Stack(
@@ -270,22 +269,24 @@ class _AlbumDetailsViewState extends State<AlbumDetailsView> {
                 ),
               ],
             ),
-            ListView.builder(
-              padding: EdgeInsets.zero,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: albumVM.playedArr.length,
-              itemBuilder: (context, index) {
-                var sObj = albumVM.playedArr[index];
-                return AlbumSongRow(
-                  sObj: sObj,
-                  onPressPlay: () {},
-                  onPressed: () {},
-                  isPlay: index == 0,
-                );
-              },
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                itemCount: albumVM.playedArr.length,
+                itemBuilder: (context, index) {
+                  var sObj = albumVM.playedArr[index];
+                  return AlbumSongRow(
+                    sObj: sObj,
+                    onPressPlay: () {},
+                    onPressed: () {},
+                    isPlay: index == 0,
+                  );
+                },
+              ),
             ),
           ]),
-        )));
+        ));
   }
 }

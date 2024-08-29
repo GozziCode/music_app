@@ -25,10 +25,10 @@ class _MainTabviewState extends State<MainTabview>
   @override
   void initState() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(systemNavigationBarColor: TColor.drawerBg,
-            //  Color.fromARGB(255, 17, 20, 33),
-            ));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: TColor.drawerBg,
+      //  Color.fromARGB(255, 17, 20, 33),
+    ));
     tabController = TabController(length: 3, vsync: this);
     tabController!.addListener(() {
       selectedIndex = tabController!.index;
@@ -58,7 +58,7 @@ class _MainTabviewState extends State<MainTabview>
             padding: EdgeInsets.zero,
             children: [
               SizedBox(
-                height: size.height * .23,
+                height: size.height * .27,
                 child: DrawerHeader(
                   decoration: BoxDecoration(
                       color: TColor.primaryText.withOpacity(0.03)),
