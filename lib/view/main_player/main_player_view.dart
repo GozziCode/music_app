@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../common/color_extension.dart';
 import '../../view_model/splash_view_model.dart';
@@ -81,7 +82,20 @@ class _MainPlayerViewState extends State<MainPlayerView> {
                 ],
               ),
               const Row(
-                children: [],
+                children: [
+                  SleekCircularSlider(
+                    min: 0,
+max: 100,
+onChange: (double value){
+
+},
+onChangeEnd: (double endValue){
+
+}
+initialValue: 42.6
+                  )
+
+                ],
               )
             ],
           ),
