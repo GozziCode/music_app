@@ -243,13 +243,24 @@ class _MainPlayerViewState extends State<MainPlayerView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: Image.asset(
-                          'assets/img/previous_song.png',
-                          width: 35,
-                          height: 35,
-                        )),
+                    Column(
+                      children: [
+                        IconButton(
+                            onPressed: () {},
+                            icon: Image.asset(
+                              'assets/img/playlist.png',
+                              width: 35,
+                              height: 35,
+                            )),
+                        Text(
+                          'Playlist',
+                          style: TextStyle(
+                              color: TColor.secondaryText,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
                   ],
                 )
               ],
