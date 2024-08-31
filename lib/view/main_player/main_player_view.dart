@@ -240,6 +240,7 @@ class _MainPlayerViewState extends State<MainPlayerView> {
                         ))
                   ],
                 ),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -256,9 +257,10 @@ class _MainPlayerViewState extends State<MainPlayerView> {
                           'Playlist',
                           style: TextStyle(
                               color: TColor.secondaryText,
-                              fontSize: 12,
+                              fontSize: 8,
                               fontWeight: FontWeight.w600),
                         ),
+                        const SizedBox(height: 20),
                       ],
                     ),
                   ],
