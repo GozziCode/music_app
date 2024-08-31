@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../common/color_extension.dart';
-import '../../view_model/splash_view_model.dart';
 
 class MainPlayerView extends StatefulWidget {
   const MainPlayerView({super.key});
@@ -17,42 +15,7 @@ class _MainPlayerViewState extends State<MainPlayerView> {
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
 
-    final customWidth05 = CustomSliderWidths(
-        trackWidth: 4, progressBarWidth: 45, shadowWidth: 70);
-    final customColors05 = CustomSliderColors(
-        dotColor: const Color(0x00ffb1b2),
-        trackColor: const Color(0x00e9585a),
-        progressBarColors: [const Color(0xFB996725), const Color(0x00e9585a)],
-        shadowColor: const Color(0x00ffb1b2),
-        shadowMaxOpacity: 0.05);
-    final info05 = InfoProperties(
-        topLabelStyle: const TextStyle(
-            color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
-        topLabelText: 'Elapsed',
-        bottomLabelStyle: const TextStyle(
-            color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
-        bottomLabelText: 'time',
-        mainLabelStyle: const TextStyle(
-            color: Colors.white, fontSize: 50.0, fontWeight: FontWeight.w600),
-        modifier: (double value) {
-          return '';
-        });
-    final CircularSliderAppearance appearance05 = CircularSliderAppearance(
-        customWidths: customWidth05,
-        customColors: customColors05,
-        infoProperties: info05,
-        startAngle: 270,
-        angleRange: 360,
-        size: 350.0);
-    final viewModel05 = SleekCircularSlider(
-      appearance: appearance05,
-      min: 0,
-      max: 86400,
-    );
-
-    // final customWidth =
-    //     ;
-    // final customColor = ;
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: TColor.bg,
@@ -87,13 +50,88 @@ class _MainPlayerViewState extends State<MainPlayerView> {
               onPressed: () {
                 FocusScope.of(context).unfocus();
               },
-              icon: Image.asset(
-                'assets/img/more_btn.png',
-                width: 20,
-                height: 20,
-                fit: BoxFit.contain,
-                color: TColor.primaryText80,
-              ),
+              icon: PopupMenuButton(
+                  onSelected: (value){},
+                  elevation: 1,
+                  offset: const Offset(-10, 15),
+                  icon: Image.asset(
+                    'assets/img/more_btn.png',
+                    width: 20,
+                    height: 20,
+                    color: Colors.white,
+                  ),
+                  color: const Color(0xff23273b),
+                  shadowColor: Colors.black,
+                  splashRadius: 5,
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context) {
+                    return [
+                      const PopupMenuItem(
+                          height: 30,
+                          value: 1,
+                          child: Text(
+                            'Social Share',
+                            style: TextStyle(fontSize: 12),
+                          )),
+                      const PopupMenuItem(
+                          height: 30,
+                          value: 2,
+                          child: Text(
+                            'Play Queue',
+                            style: TextStyle(fontSize: 12),
+                          )),
+                      const PopupMenuItem(
+                          height: 30,
+                          value: 3,
+                          child: Text(
+                            'Add to playlist...',
+                            style: TextStyle(fontSize: 12),
+                          )),
+                      const PopupMenuItem(
+                          height: 30,
+                          value: 4,
+                          child: Text(
+                            'Lyrics',
+                            style: TextStyle(fontSize: 12),
+                          )),
+                      const PopupMenuItem(
+                          height: 30,
+                          value: 5,
+                          child: Text(
+                            'Volume',
+                            style: TextStyle(fontSize: 12),
+                          )),
+                      const PopupMenuItem(
+                          height: 30,
+                          value: 6,
+                          child: Text(
+                            'Details',
+                            style: TextStyle(fontSize: 12),
+                          )),
+                      const PopupMenuItem(
+                          height: 30,
+                          value: 7,
+                          child: Text(
+                            'Sleep timer',
+                            style: TextStyle(fontSize: 12),
+                          )),
+                      const PopupMenuItem(
+                          height: 30,
+                          value: 5,
+                          child: Text(
+                            'Equalizer',
+                            style: TextStyle(fontSize: 12),
+                          )),
+                      const PopupMenuItem(
+                          height: 30,
+                          value: 5,
+                          child: Text(
+                            'Driver Mode',
+                            style: TextStyle(fontSize: 12),
+                          )),
+                    ];
+                  },
+                ),
             ),
           ),
         ],
@@ -125,8 +163,8 @@ class _MainPlayerViewState extends State<MainPlayerView> {
                             angleRange: 360,
                             customWidths: CustomSliderWidths(
                                 trackWidth: 4,
-                                progressBarWidth: 6,
-                                shadowWidth: 6),
+                                progressBarWidth: 8,
+                                shadowWidth: 8),
                             customColors: CustomSliderColors(
                                 dotColor: const Color(0xffffb1b2),
                                 trackColor:
@@ -244,31 +282,52 @@ class _MainPlayerViewState extends State<MainPlayerView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Column(
-                      children: [
-                        IconButton(
-                            onPressed: () {},
-                            icon: Image.asset(
-                              'assets/img/playlist.png',
-                              width: 35,
-                              height: 35,
-                            )),
-                        Text(
-                          'Playlist',
-                          style: TextStyle(
-                              color: TColor.secondaryText,
-                              fontSize: 8,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        const SizedBox(height: 20),
-                      ],
-                    ),
+                    PlayerBottomButton(icon: 'assets/img/playlist.png',title: 'Playlist', onPressed: (){},),
+                    PlayerBottomButton(icon: 'assets/img/shuffle.png',title: 'Shuffle', onPressed: (){},),
+                    PlayerBottomButton(icon: 'assets/img/repeat.png',title: 'Repeat', onPressed: (){},),
+                    PlayerBottomButton(icon: 'assets/img/eq.png',title: 'EQ', onPressed: (){},),
+                    PlayerBottomButton(icon: 'assets/img/fav.png',title: 'Favourites', onPressed: (){},),
                   ],
                 )
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class PlayerBottomButton extends StatelessWidget {
+  final String title;
+  final String icon;
+  final VoidCallback onPressed;
+  const PlayerBottomButton({
+    super.key, required this.title, required this.icon, required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          IconButton(
+              onPressed: () {},
+              icon: Image.asset(
+                icon,
+                color: TColor.primaryText80,
+                width: 30,
+                height: 30,
+              )),
+          Text(
+            title,
+            style: TextStyle(
+                color: TColor.secondaryText,
+                fontSize: 12,
+                fontWeight: FontWeight.w600),
+          ),
+        ],
       ),
     );
   }
