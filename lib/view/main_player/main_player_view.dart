@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:music_app/view/main_player/play_playlist_view.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../common/color_extension.dart';
@@ -51,7 +54,7 @@ class _MainPlayerViewState extends State<MainPlayerView> {
                 FocusScope.of(context).unfocus();
               },
               icon: PopupMenuButton(
-                  onSelected: (value){},
+                  onSelected: (selectedIndex){},
                   elevation: 1,
                   offset: const Offset(-10, 15),
                   icon: Image.asset(
@@ -278,10 +281,16 @@ class _MainPlayerViewState extends State<MainPlayerView> {
                         ))
                   ],
                 ),
+                const SizedBox(height: 15,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    PlayerBottomButton(icon: 'assets/img/playlist.png',title: 'Playlist', onPressed: (){},),
+                    PlayerBottomButton(icon: 'assets/img/playlist.png',title: 'Playlist', onPressed: () {
+                      if (kDebugMode) {
+                        print('i got tapped');
+                      }
+                      Get.to(()=> const PlayPlaylistView());
+                    },),
                     PlayerBottomButton(icon: 'assets/img/shuffle.png',title: 'Shuffle', onPressed: (){},),
                     PlayerBottomButton(icon: 'assets/img/repeat.png',title: 'Repeat', onPressed: (){},),
                     PlayerBottomButton(icon: 'assets/img/eq.png',title: 'EQ', onPressed: (){},),
@@ -312,7 +321,7 @@ class PlayerBottomButton extends StatelessWidget {
       child: Column(
         children: [
           IconButton(
-              onPressed: () {},
+              onPressed: onPressed,
               icon: Image.asset(
                 icon,
                 color: TColor.primaryText80,
