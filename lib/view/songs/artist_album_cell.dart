@@ -25,7 +25,7 @@ class ArtistAlbumCell extends StatelessWidget {
               borderRadius: BorderRadius.circular(9),
               child: Image.asset(
                 pObj['image'],
-                width: 90, //TODO:1
+                width: 90, 
                 height: 80,
                 fit: BoxFit.cover,
               )),

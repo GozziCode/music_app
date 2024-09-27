@@ -20,19 +20,22 @@ class _ArtistsViewState extends State<ArtistsView> {
     // Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Obx(() => ListView.builder(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          itemCount: artistsVM.allList.length,
-          itemBuilder: (context, index) {
-            var aObj = artistsVM.allList[index];
-            return ArtistRow(
-              aObj: aObj,
-              onPressMenuSelected: (selectedIndex) {},
-              onPressed: () {
-                Get.to(() => const ArtistDetailsView());
-              },
-            );
-          })),
+      body: Obx(() => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: ListView.builder(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            itemCount: artistsVM.allList.length,
+            itemBuilder: (context, index) {
+              var aObj = artistsVM.allList[index];
+              return ArtistRow(
+                aObj: aObj,
+                onPressMenuSelected: (selectedIndex) {},
+                onPressed: () {
+                  Get.to(() => const ArtistDetailsView());
+                },
+              );
+            }),
+      )),
     );
   }
 }

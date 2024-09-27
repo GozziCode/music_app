@@ -1,4 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:music_app/view/main_player/driver_mode_view.dart';
+import 'package:music_app/view/main_player/play_playlist_view.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../common/color_extension.dart';
@@ -15,10 +19,10 @@ class _MainPlayerViewState extends State<MainPlayerView> {
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
 
-    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: TColor.bg,
+
         // leading: Container(
         //   margin: const EdgeInsets.only(left: 15.0),
         //   child: IconButton(
@@ -51,87 +55,92 @@ class _MainPlayerViewState extends State<MainPlayerView> {
                 FocusScope.of(context).unfocus();
               },
               icon: PopupMenuButton(
-                  onSelected: (value){},
-                  elevation: 1,
-                  offset: const Offset(-10, 15),
-                  icon: Image.asset(
-                    'assets/img/more_btn.png',
-                    width: 20,
-                    height: 20,
-                    color: Colors.white,
-                  ),
-                  color: const Color(0xff23273b),
-                  shadowColor: Colors.black,
-                  splashRadius: 5,
-                  padding: EdgeInsets.zero,
-                  itemBuilder: (context) {
-                    return [
-                      const PopupMenuItem(
-                          height: 30,
-                          value: 1,
-                          child: Text(
-                            'Social Share',
-                            style: TextStyle(fontSize: 12),
-                          )),
-                      const PopupMenuItem(
-                          height: 30,
-                          value: 2,
-                          child: Text(
-                            'Play Queue',
-                            style: TextStyle(fontSize: 12),
-                          )),
-                      const PopupMenuItem(
-                          height: 30,
-                          value: 3,
-                          child: Text(
-                            'Add to playlist...',
-                            style: TextStyle(fontSize: 12),
-                          )),
-                      const PopupMenuItem(
-                          height: 30,
-                          value: 4,
-                          child: Text(
-                            'Lyrics',
-                            style: TextStyle(fontSize: 12),
-                          )),
-                      const PopupMenuItem(
-                          height: 30,
-                          value: 5,
-                          child: Text(
-                            'Volume',
-                            style: TextStyle(fontSize: 12),
-                          )),
-                      const PopupMenuItem(
-                          height: 30,
-                          value: 6,
-                          child: Text(
-                            'Details',
-                            style: TextStyle(fontSize: 12),
-                          )),
-                      const PopupMenuItem(
-                          height: 30,
-                          value: 7,
-                          child: Text(
-                            'Sleep timer',
-                            style: TextStyle(fontSize: 12),
-                          )),
-                      const PopupMenuItem(
-                          height: 30,
-                          value: 5,
-                          child: Text(
-                            'Equalizer',
-                            style: TextStyle(fontSize: 12),
-                          )),
-                      const PopupMenuItem(
-                          height: 30,
-                          value: 5,
-                          child: Text(
-                            'Driver Mode',
-                            style: TextStyle(fontSize: 12),
-                          )),
-                    ];
-                  },
+                onSelected: (selectedIndex) {
+                  if (selectedIndex == 9) {
+                    debugPrint('item seected');
+                    Get.to(() => const DriverModeView());
+                  }
+                },
+                elevation: 1,
+                offset: const Offset(-10, 15),
+                icon: Image.asset(
+                  'assets/img/more_btn.png',
+                  width: 20,
+                  height: 20,
+                  color: Colors.white,
                 ),
+                color: const Color(0xff23273b),
+                shadowColor: Colors.black,
+                splashRadius: 5,
+                padding: EdgeInsets.zero,
+                itemBuilder: (context) {
+                  return [
+                    const PopupMenuItem(
+                        height: 30,
+                        value: 1,
+                        child: Text(
+                          'Social Share',
+                          style: TextStyle(fontSize: 12),
+                        )),
+                    const PopupMenuItem(
+                        height: 30,
+                        value: 2,
+                        child: Text(
+                          'Play Queue',
+                          style: TextStyle(fontSize: 12),
+                        )),
+                    const PopupMenuItem(
+                        height: 30,
+                        value: 3,
+                        child: Text(
+                          'Add to playlist...',
+                          style: TextStyle(fontSize: 12),
+                        )),
+                    const PopupMenuItem(
+                        height: 30,
+                        value: 4,
+                        child: Text(
+                          'Lyrics',
+                          style: TextStyle(fontSize: 12),
+                        )),
+                    const PopupMenuItem(
+                        height: 30,
+                        value: 5,
+                        child: Text(
+                          'Volume',
+                          style: TextStyle(fontSize: 12),
+                        )),
+                    const PopupMenuItem(
+                        height: 30,
+                        value: 6,
+                        child: Text(
+                          'Details',
+                          style: TextStyle(fontSize: 12),
+                        )),
+                    const PopupMenuItem(
+                        height: 30,
+                        value: 7,
+                        child: Text(
+                          'Sleep timer',
+                          style: TextStyle(fontSize: 12),
+                        )),
+                    const PopupMenuItem(
+                        height: 30,
+                        value: 8,
+                        child: Text(
+                          'Equalizer',
+                          style: TextStyle(fontSize: 12),
+                        )),
+                    const PopupMenuItem(
+                        height: 30,
+                        value: 9,
+                        child: Text(
+                          'Driver Mode',
+                          style: TextStyle(fontSize: 12),
+                        )),
+                  ];
+                },
+              ),
             ),
           ),
         ],
@@ -282,11 +291,36 @@ class _MainPlayerViewState extends State<MainPlayerView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    PlayerBottomButton(icon: 'assets/img/playlist.png',title: 'Playlist', onPressed: (){},),
-                    PlayerBottomButton(icon: 'assets/img/shuffle.png',title: 'Shuffle', onPressed: (){},),
-                    PlayerBottomButton(icon: 'assets/img/repeat.png',title: 'Repeat', onPressed: (){},),
-                    PlayerBottomButton(icon: 'assets/img/eq.png',title: 'EQ', onPressed: (){},),
-                    PlayerBottomButton(icon: 'assets/img/fav.png',title: 'Favourites', onPressed: (){},),
+                    PlayerBottomButton(
+                      icon: 'assets/img/playlist.png',
+                      title: 'Playlist',
+                      onPressed: () {
+                        if (kDebugMode) {
+                          print('i got tapped');
+                        }
+                        Get.to(() => const PlayPlaylistView());
+                      },
+                    ),
+                    PlayerBottomButton(
+                      icon: 'assets/img/shuffle.png',
+                      title: 'Shuffle',
+                      onPressed: () {},
+                    ),
+                    PlayerBottomButton(
+                      icon: 'assets/img/repeat.png',
+                      title: 'Repeat',
+                      onPressed: () {},
+                    ),
+                    PlayerBottomButton(
+                      icon: 'assets/img/eq.png',
+                      title: 'EQ',
+                      onPressed: () {},
+                    ),
+                    PlayerBottomButton(
+                      icon: 'assets/img/fav.png',
+                      title: 'Favourites',
+                      onPressed: () {},
+                    ),
                   ],
                 )
               ],
@@ -303,7 +337,10 @@ class PlayerBottomButton extends StatelessWidget {
   final String icon;
   final VoidCallback onPressed;
   const PlayerBottomButton({
-    super.key, required this.title, required this.icon, required this.onPressed,
+    super.key,
+    required this.title,
+    required this.icon,
+    required this.onPressed,
   });
 
   @override
@@ -313,7 +350,7 @@ class PlayerBottomButton extends StatelessWidget {
       child: Column(
         children: [
           IconButton(
-              onPressed: () {},
+              onPressed: onPressed,
               icon: Image.asset(
                 icon,
                 color: TColor.primaryText80,
