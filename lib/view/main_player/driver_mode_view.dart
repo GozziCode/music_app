@@ -1,8 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_app/view/main_player/play_playlist_view.dart';
-import 'package:music_app/view/songs/playlist_view.dart';
 
 import '../../common/color_extension.dart';
 
@@ -14,6 +12,7 @@ class DriverModeView extends StatefulWidget {
 }
 
 class _DriverModeViewState extends State<DriverModeView> {
+  var sliderVal = 0.7;
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
@@ -29,8 +28,8 @@ class _DriverModeViewState extends State<DriverModeView> {
             },
             icon: Image.asset(
               'assets/img/close.png',
-              width: 25,
-              height: 25,
+              width: 20,
+              height: 20,
               fit: BoxFit.contain,
               color: TColor.primaryText28,
             ),
@@ -47,7 +46,7 @@ class _DriverModeViewState extends State<DriverModeView> {
         actions: [
           IconButton(
             onPressed: () {
-              Get.to(() => const PlaylistView());
+              Get.to(() => const PlayPlaylistView());
             }, //TODO: Used routing
             icon: Image.asset(
               'assets/img/playlist.png',
@@ -89,17 +88,7 @@ class _DriverModeViewState extends State<DriverModeView> {
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  '3:15|4:26',
-                  style: TextStyle(
-                      color: TColor.secondaryText,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(
-                  height: 25,
+                  height: 50,
                 ),
                 Text(
                   'Black or White',
@@ -114,96 +103,93 @@ class _DriverModeViewState extends State<DriverModeView> {
                 Text(
                   'Michael Jackson | Album - Dangerious ',
                   style: TextStyle(
-                      color: TColor.secondaryText,
+                      color: TColor.primaryText60,
                       fontSize: 12,
                       fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                Image.asset(
-                  'assets/img/eq_display.png',
+                Text(
+                  '232/232',
+                  style: TextStyle(
+                    color: TColor.primaryText60,
+                    fontSize: 12,
+                  ),
+                ),
+                const SizedBox(
                   height: 60,
-                  fit: BoxFit.fitHeight,
+                ),
+                Slider(
+                    value: sliderVal,
+                    activeColor: TColor.focus,
+                    inactiveColor: TColor.primaryText28,
+                    onChanged: (newVal) {
+                      setState(() {
+                        sliderVal = newVal;
+                      });
+                    }),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '3:35',
+                        style: TextStyle(
+                          color: TColor.primaryText60,
+                          fontSize: 12,
+                        ),
+                      ),
+                      Text(
+                        '4:55',
+                        style: TextStyle(
+                          color: TColor.primaryText60,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Divider(
-                    color: Colors.white12,
-                    height: 1,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: Image.asset(
-                          'assets/img/previous_song.png',
-                          width: 35,
-                          height: 35,
-                        )),
-                    const SizedBox(height: 15),
-                    SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: IconButton(
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
                           onPressed: () {},
                           icon: Image.asset(
-                            'assets/img/play.png',
+                            'assets/img/previous_song.png',
+                            width: 60,
+                            height: 60,
                           )),
-                    ),
-                    const SizedBox(height: 15),
-                    IconButton(
-                        onPressed: () {},
-                        icon: Image.asset(
-                          'assets/img/next_song.png',
-                          width: 35,
-                          height: 35,
-                        ))
-                  ],
+                      const SizedBox(height: 15),
+                      SizedBox(
+                        width: 80,
+                        height: 80,
+                        child: IconButton(
+                            onPressed: () {},
+                            icon: Image.asset(
+                              'assets/img/play.png',
+                            )),
+                      ),
+                      const SizedBox(height: 15),
+                      IconButton(
+                          onPressed: () {},
+                          icon: Image.asset(
+                            'assets/img/next_song.png',
+                            width: 60,
+                            height: 60,
+                          ))
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    PlayerBottomButton(
-                      icon: 'assets/img/playlist.png',
-                      title: 'Playlist',
-                      onPressed: () {
-                        if (kDebugMode) {
-                          print('i got tapped');
-                        }
-                        Get.to(() => const PlayPlaylistView());
-                      },
-                    ),
-                    PlayerBottomButton(
-                      icon: 'assets/img/shuffle.png',
-                      title: 'Shuffle',
-                      onPressed: () {},
-                    ),
-                    PlayerBottomButton(
-                      icon: 'assets/img/repeat.png',
-                      title: 'Repeat',
-                      onPressed: () {},
-                    ),
-                    PlayerBottomButton(
-                      icon: 'assets/img/eq.png',
-                      title: 'EQ',
-                      onPressed: () {},
-                    ),
-                    PlayerBottomButton(
-                      icon: 'assets/img/fav.png',
-                      title: 'Favourites',
-                      onPressed: () {},
-                    ),
-                  ],
-                )
               ],
             ),
           ),

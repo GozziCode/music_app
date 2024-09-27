@@ -34,9 +34,9 @@ class AlbumSongRow extends StatelessWidget {
               sObj['name']!,
               maxLines: 1,
               style: TextStyle(
-                  color: TColor.primaryText60,
-                  fontSize: 13,
-                  ),
+                color: TColor.primaryText60,
+                fontSize: 13,
+              ),
             )),
             Text(
               sObj['duration']!,

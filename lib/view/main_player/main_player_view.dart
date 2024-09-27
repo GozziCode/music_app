@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:music_app/view/main_player/driver_mode_view.dart';
 import 'package:music_app/view/main_player/play_playlist_view.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
@@ -21,6 +22,7 @@ class _MainPlayerViewState extends State<MainPlayerView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: TColor.bg,
+
         // leading: Container(
         //   margin: const EdgeInsets.only(left: 15.0),
         //   child: IconButton(
@@ -53,7 +55,12 @@ class _MainPlayerViewState extends State<MainPlayerView> {
                 FocusScope.of(context).unfocus();
               },
               icon: PopupMenuButton(
-                onSelected: (selectedIndex) {},
+                onSelected: (selectedIndex) {
+                  if (selectedIndex == 9) {
+                    debugPrint('item seected');
+                    Get.to(() => const DriverModeView());
+                  }
+                },
                 elevation: 1,
                 offset: const Offset(-10, 15),
                 icon: Image.asset(
@@ -119,14 +126,14 @@ class _MainPlayerViewState extends State<MainPlayerView> {
                         )),
                     const PopupMenuItem(
                         height: 30,
-                        value: 5,
+                        value: 8,
                         child: Text(
                           'Equalizer',
                           style: TextStyle(fontSize: 12),
                         )),
                     const PopupMenuItem(
                         height: 30,
-                        value: 5,
+                        value: 9,
                         child: Text(
                           'Driver Mode',
                           style: TextStyle(fontSize: 12),

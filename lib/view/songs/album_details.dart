@@ -284,7 +284,7 @@ class _AlbumDetailsViewState extends State<AlbumDetailsView> {
                     isPlay: index == 0,
                   );
                 },
-              ),
+              ).marginOnly(bottom: 40),
             ),
           ]),
         ));
