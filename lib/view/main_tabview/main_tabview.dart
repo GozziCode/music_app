@@ -1,96 +1,105 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import 'package:music_app/view/home/home_view.dart';
-import 'package:music_app/view/settings/settings.dart';
-import 'package:music_app/view_model/splash_view_model.dart';
-
 import '../../common/color_extension.dart';
+import '../../common_widget/icon_text_row.dart';
+import '../../common_widget/mini_player_view.dart';
+import '../../view_model/splash_view_model.dart';
+import '../home/home_view.dart';
+import '../settings/settings_view.dart';
 import '../songs/songs_view.dart';
 
-class MainTabview extends StatefulWidget {
-  const MainTabview({super.key});
+class MainTabView extends StatefulWidget {
+  const MainTabView({super.key});
 
   @override
-  State<MainTabview> createState() => _MainTabviewState();
+  State<MainTabView> createState() => _MainTabViewState();
 }
 
-class _MainTabviewState extends State<MainTabview>
+class _MainTabViewState extends State<MainTabView>
     with SingleTickerProviderStateMixin {
-  TabController? tabController;
-  int selectedIndex = 0;
+  TabController? controller;
+  int selectTab = 0;
 
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: TColor.drawerBg,
-      //  Color.fromARGB(255, 17, 20, 33),
-    ));
-    tabController = TabController(length: 3, vsync: this);
-    tabController!.addListener(() {
-      selectedIndex = tabController!.index;
+    // TODO: implement initState
+    super.initState();
+    controller = TabController(length: 3, vsync: this);
+
+    controller?.addListener(() {
+      selectTab = controller?.index ?? 0;
       setState(() {});
     });
-
-    super.initState();
   }
 
   @override
   void dispose() {
-    tabController!.dispose();
+    // TODO: implement dispose
     super.dispose();
+    controller?.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.sizeOf(context);
-    var splashVM = Get.find<SplashViewModel>();
+    var media = MediaQuery.sizeOf(context);
+
+    var splashVM = Get.find<SplashViewMode>();
+
     return Scaffold(
       key: splashVM.scaffoldKey,
-      drawer: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Drawer(
-          backgroundColor: TColor.drawerBg,
+      drawer: Drawer(
+          backgroundColor: const Color(0xff10121D),
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
               SizedBox(
-                height: size.height * .27,
+                height: 240,
                 child: DrawerHeader(
                   decoration: BoxDecoration(
-                      color: TColor.primaryText.withOpacity(0.03)),
+                    color: TColor.primaryText.withOpacity(0.03),
+                  ),
                   child: Column(
                     children: [
                       Image.asset(
-                        'assets/img/app_logo.png',
-                        width: size.width * .15,
+                        "assets/img/app_logo.png",
+                        width: media.width * 0.17,
                       ),
-                      SizedBox(
-                        height: size.height * .02,
+                      const SizedBox(
+                        height: 20,
                       ),
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(
-                            textAlign: TextAlign.center,
-                            '328\nSongs',
-                            style: TextStyle(
-                                color: Color(0xffc1c0c0), fontSize: 12),
+                          Column(
+                            children: [
+                              Text(
+                                "328\nSongs",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Color(0xffC1C0C0), fontSize: 12),
+                              )
+                            ],
                           ),
-                          Text(
-                            textAlign: TextAlign.center,
-                            '328\nAlbums',
-                            style: TextStyle(
-                                color: Color(0xffc1c0c0), fontSize: 12),
+                          Column(
+                            children: [
+                              Text(
+                                "52\nAlbums",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Color(0xffC1C0C0), fontSize: 12),
+                              )
+                            ],
                           ),
-                          Text(
-                            textAlign: TextAlign.center,
-                            '328\nArtists',
-                            style: TextStyle(
-                                color: Color(0xffc1c0c0), fontSize: 12),
+                          Column(
+                            children: [
+                              Text(
+                                "87\nArtists",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Color(0xffC1C0C0), fontSize: 12),
+                              )
+                            ],
                           )
                         ],
                       )
@@ -98,154 +107,110 @@ class _MainTabviewState extends State<MainTabview>
                   ),
                 ),
               ),
-              DrawerListTile(
-                img: 'assets/img/m_theme.png',
-                title: 'Themes',
-                onTap: () {
-                  splashVM.closeDrawer();
-                },
+              IconTextRow(
+                title: "Themes",
+                icon: "assets/img/m_theme.png",
+                onTap: () {},
               ),
-              DrawerListTile(
-                img: 'assets/img/m_ring_cut.png',
-                title: 'Ringtone Cutter',
-                onTap: () {
-                  splashVM.closeDrawer();
-                },
+              IconTextRow(
+                title: "Ringtone Cutter",
+                icon: "assets/img/m_ring_cut.png",
+                onTap: () {},
               ),
-              DrawerListTile(
-                img: 'assets/img/m_sleep_timer.png',
-                title: 'Sleep Timer',
-                onTap: () {
-                  splashVM.closeDrawer();
-                },
+              IconTextRow(
+                title: "Sleep Timer",
+                icon: "assets/img/m_sleep_timer.png",
+                onTap: () {},
               ),
-              DrawerListTile(
-                img: 'assets/img/m_eq.png',
-                title: 'Equalizer',
-                onTap: () {
-                  splashVM.closeDrawer();
-                },
+              IconTextRow(
+                title: "Equalizer",
+                icon: "assets/img/m_eq.png",
+                onTap: () {},
               ),
-              DrawerListTile(
-                img: 'assets/img/m_driver_mode.png',
-                title: 'Driver Mode',
-                onTap: () {
-                  splashVM.closeDrawer();
-                },
+              IconTextRow(
+                title: "Driver Mode",
+                icon: "assets/img/m_driver_mode.png",
+                onTap: () {},
               ),
-              DrawerListTile(
-                img: 'assets/img/m_hidden_folder.png',
-                title: 'Hidden Folders',
-                onTap: () {
-                  splashVM.closeDrawer();
-                },
+              IconTextRow(
+                title: "Hidden Folders",
+                icon: "assets/img/m_hidden_folder.png",
+                onTap: () {},
               ),
-              DrawerListTile(
-                img: 'assets/img/m_scan_media.png',
-                title: 'Scan Media',
-                onTap: () {
-                  splashVM.closeDrawer();
-                },
+              IconTextRow(
+                title: "Scan Media",
+                icon: "assets/img/m_scan_media.png",
+                onTap: () {},
               ),
             ],
+          )),
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          TabBarView(
+            controller: controller,
+            children: const [
+              HomeView(),
+              SongsView(),
+              SettingsView(),
+            ],
           ),
-        ),
-      ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: TabBarView(
-            controller: tabController,
-            children: const [HomeView(), SongsView(), SettingsView()]),
+          MiniPlayerView(),
+        ],
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          border: Border(top: BorderSide(color: TColor.focus, width: 2)),
-          color: TColor.bg,
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-        ),
+        decoration: BoxDecoration(color: TColor.bg, boxShadow: const [
+          BoxShadow(
+            color: Colors.black38,
+            blurRadius: 5,
+            offset: Offset(0, -3),
+          )
+        ]),
         child: BottomAppBar(
-          color: Colors.transparent,
-          child: TabBar(
-              splashBorderRadius: const BorderRadius.all(Radius.circular(25)),
-              // splashFactory: InkSparkle.constantTurbulenceSeedSplashFactory,
-              indicator: const BoxDecoration(),
-              controller: tabController,
+            color: Colors.transparent,
+            elevation: 0,
+            child: TabBar(
+              controller: controller,
+              indicatorColor: Colors.transparent,
+              indicatorWeight: 1,
+              labelColor: TColor.primary,
+              labelStyle: const TextStyle(fontSize: 10),
+              unselectedLabelColor: TColor.primaryText28,
+              unselectedLabelStyle: const TextStyle(fontSize: 10),
               tabs: [
                 Tab(
-                  text: 'Home',
+                  text: "Home",
                   icon: Image.asset(
-                    selectedIndex == 0
-                        ? 'assets/img/home_tab.png'
-                        : 'assets/img/home_tab_un.png',
+                    selectTab == 0
+                        ? "assets/img/home_tab.png"
+                        : "assets/img/home_tab_un.png",
                     width: 20,
                     height: 20,
                   ),
                 ),
                 Tab(
-                  text: 'Song',
+                  text: "Songs",
                   icon: Image.asset(
-                    selectedIndex == 1
-                        ? 'assets/img/songs_tab.png'
-                        : 'assets/img/songs_tab_un.png',
+                    selectTab == 1
+                        ? "assets/img/songs_tab.png"
+                        : "assets/img/songs_tab_un.png",
                     width: 20,
                     height: 20,
                   ),
                 ),
                 Tab(
-                  text: 'Settings',
+                  text: "Settings",
                   icon: Image.asset(
-                    selectedIndex == 2
-                        ? 'assets/img/setting_tab.png'
-                        : 'assets/img/setting_tab_un.png',
+                    selectTab == 2
+                        ? "assets/img/songs_tab.png"
+                        : "assets/img/setting_tab_un.png",
                     width: 20,
                     height: 20,
                   ),
-                ),
-              ]),
-        ),
+                )
+              ],
+            )),
       ),
-    );
-  }
-}
-
-class DrawerListTile extends StatelessWidget {
-  final String img, title;
-  final VoidCallback onTap;
-  const DrawerListTile({
-    super.key,
-    required this.title,
-    required this.img,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ListTile(
-          leading: Image.asset(
-            img,
-            width: 25,
-            height: 25,
-            fit: BoxFit.contain,
-          ),
-          title: Text(
-            title,
-            style: TextStyle(
-                color: TColor.primaryText.withOpacity(0.9),
-                fontSize: 14,
-                fontWeight: FontWeight.w500),
-          ),
-          onTap: onTap,
-        ),
-        Divider(
-          color: TColor.primaryText.withOpacity(0.07),
-          indent: 20,
-          endIndent: 20,
-        )
-      ],
     );
   }
 }

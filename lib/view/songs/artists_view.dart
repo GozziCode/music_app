@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../common_widget/artist_row.dart';
 import '../../view_model/artists_view_model.dart';
 import 'artist_details_view.dart';
-import 'artist_row.dart';
 
 class ArtistsView extends StatefulWidget {
   const ArtistsView({super.key});
@@ -13,29 +13,27 @@ class ArtistsView extends StatefulWidget {
 }
 
 class _ArtistsViewState extends State<ArtistsView> {
-  final artistsVM = Get.put(ArtistsViewModel());
+  final artVM = Get.put(ArtistsViewModel());
 
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
-
     return Scaffold(
-      body: Obx(() => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: ListView.builder(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            itemCount: artistsVM.allList.length,
+      body: Obx(
+        () => ListView.builder(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            itemCount: artVM.allList.length,
             itemBuilder: (context, index) {
-              var aObj = artistsVM.allList[index];
+              var aObj = artVM.allList[index];
+
               return ArtistRow(
                 aObj: aObj,
-                onPressMenuSelected: (selectedIndex) {},
                 onPressed: () {
                   Get.to(() => const ArtistDetailsView());
                 },
+                onPressedMenuSelect: (selectIndex) {},
               );
             }),
-      )),
+      ),
     );
   }
 }
