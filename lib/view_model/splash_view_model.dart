@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_app/view/main_tabview/main_tabview.dart';
 
-class SplashViewModel extends GetxController {
-  // @override
-  // onInit() {
-  //   loadScreen();
-  //   super.onInit();
-  // }
+import '../view/main_tabview/main_tabview.dart';
 
+class SplashViewMode extends GetxController {
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
-  Future<void> loadScreen() async {
+  void loadView() async {
     await Future.delayed(const Duration(seconds: 3));
-    Get.offAll(() => const MainTabview());
+    Get.to(() => const MainTabView());
   }
 
   void openDrawer() {
-    scaffoldKey.currentState!.openDrawer();
+    scaffoldKey.currentState?.openDrawer();
   }
 
-  
   void closeDrawer() {
-    scaffoldKey.currentState!.closeDrawer();
+    scaffoldKey.currentState?.closeDrawer();
   }
 }

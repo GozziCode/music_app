@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_app/view/songs/all_songs_view.dart';
-import 'package:music_app/view/songs/artists_view.dart';
-import 'package:music_app/view/songs/genre_view.dart';
-import 'package:music_app/view/songs/playlist_view.dart';
 
 import '../../common/color_extension.dart';
 import '../../view_model/splash_view_model.dart';
 import 'albums_view.dart';
+import 'all_songs_view.dart';
+import 'artists_view.dart';
+import 'genres_view.dart';
+import 'playlists_view.dart';
 
 class SongsView extends StatefulWidget {
   const SongsView({super.key});
@@ -19,13 +19,16 @@ class SongsView extends StatefulWidget {
 class _SongsViewState extends State<SongsView>
     with SingleTickerProviderStateMixin {
   TabController? controller;
-  int selectedTab = 0;
+  int selectTab = 0;
+
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     controller = TabController(length: 5, vsync: this);
-    controller!.addListener(() {
-      selectedTab = controller?.index ?? 0;
+    controller?.addListener(() {
+      selectTab = controller?.index ?? 0;
+      setState(() {});
     });
   }
 
@@ -34,41 +37,38 @@ class _SongsViewState extends State<SongsView>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: TColor.bg,
-        leading: Container(
-          margin: const EdgeInsets.only(left: 15.0),
-          child: IconButton(
-            onPressed: () {
-              Get.find<SplashViewModel>().openDrawer();
-              FocusScope.of(context).unfocus();
-            },
-            icon: Image.asset(
-              'assets/img/menu.png',
-              width: 25,
-              height: 25,
-              fit: BoxFit.contain,
-              color: TColor.primaryText28,
-            ),
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Get.find<SplashViewMode>().openDrawer();
+          },
+          icon: Image.asset(
+            "assets/img/menu.png",
+            width: 25,
+            height: 25,
+            fit: BoxFit.contain,
           ),
         ),
-        title: const Text('Songs'),
-        centerTitle: true,
+        title: Text(
+          "Songs",
+          style: TextStyle(
+              color: TColor.primaryText80,
+              fontSize: 17,
+              fontWeight: FontWeight.w600),
+        ),
         actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 15.0, top: 5),
-            child: IconButton(
-              onPressed: () {
-                Get.find<SplashViewModel>().openDrawer();
-                FocusScope.of(context).unfocus();
-              },
-              icon: Image.asset(
-                'assets/img/search.png',
-                width: 20,
-                height: 20,
-                fit: BoxFit.contain,
-                color: TColor.primaryText28,
-              ),
+          IconButton(
+            onPressed: () {
+              Get.find<SplashViewMode>().openDrawer();
+            },
+            icon: Image.asset(
+              "assets/img/search.png",
+              width: 20,
+              height: 20,
+              fit: BoxFit.contain,
+              color: TColor.primaryText35,
             ),
-          ),
+          )
         ],
       ),
       body: Column(
@@ -76,45 +76,50 @@ class _SongsViewState extends State<SongsView>
           SizedBox(
             height: kToolbarHeight - 15,
             child: TabBar(
-                controller: controller,
-                indicatorColor: TColor.focus,
-                unselectedLabelColor: TColor.primaryText,
-                // indicatorPadding: const EdgeInsets.symmetric(horizontal: 20),
-                isScrollable: true,
-                labelStyle: TextStyle(
-                    color: TColor.focus,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600),
-                unselectedLabelStyle: TextStyle(
-                    color: TColor.primaryText80,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600),
-                tabs: const [
-                  Tab(
-                    text: 'All Songs',
-                  ),
-                  Tab(
-                    text: 'Playllists',
-                  ),
-                  Tab(
-                    text: 'Albums',
-                  ),
-                  Tab(
-                    text: 'Artists',
-                  ),
-                  Tab(
-                    text: 'Genre',
-                  ),
-                ]),
+              controller: controller,
+              indicatorColor: TColor.focus,
+              indicatorPadding: const EdgeInsets.symmetric(horizontal: 20),
+              isScrollable: true,
+              labelColor: TColor.focus,
+              labelStyle: TextStyle(
+                  color: TColor.focus,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600),
+              unselectedLabelColor: TColor.primaryText80,
+              unselectedLabelStyle: TextStyle(
+                  color: TColor.primaryText80,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600),
+              tabs: const [
+                Tab(
+                  text: "All Songs",
+                ),
+                Tab(
+                  text: "Playlists",
+                ),
+                Tab(
+                  text: "Albums",
+                ),
+                Tab(
+                  text: "Artists",
+                ),
+                Tab(
+                  text: "Genres",
+                ),
+              ],
+            ),
           ),
           Expanded(
-              child: TabBarView(controller: controller, children: const [
-            AllSongsView(),
-            PlaylistView(),
-            AlbumsView(),
-            ArtistsView(),
-            GenreView(),
-          ])),
+              child: TabBarView(
+            controller: controller,
+            children: const [
+              AllSongsView(),
+              PlaylistsView(),
+              AlbumsView(),
+              ArtistsView(),
+              GenresView(),
+            ],
+          ))
         ],
       ),
     );

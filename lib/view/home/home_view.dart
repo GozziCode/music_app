@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_app/view/home/widgets/playlist_cell.dart';
-import 'package:music_app/view/home/widgets/song_row.dart';
-import 'package:music_app/view_model/home_view_model.dart';
 
-import 'widgets/view_all_section.dart';
-import 'widgets/custom_appbar.dart';
-import 'widgets/recommended_cell.dart';
-import 'widgets/title_section.dart';
+import '../../common/color_extension.dart';
+import '../../common_widget/playlist_cell.dart';
+import '../../common_widget/recommended_cell.dart';
+import '../../common_widget/songs_row.dart';
+import '../../common_widget/title_section.dart';
+import '../../common_widget/view_all_section.dart';
+import '../../view_model/home_view_model.dart';
+import '../../view_model/splash_view_model.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -17,86 +18,125 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  HomeViewModel homeVM = Get.put(HomeViewModel());
+  final homeVM = Get.put(HomeViewModel());
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: customAppBar(context),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const TitleSection(
-                title: 'Hot Recommendation',
+      appBar: AppBar(
+        backgroundColor: TColor.bg,
+        elevation: 0,
+        leading: IconButton(
+            onPressed: () {
+              Get.find<SplashViewMode>().openDrawer();
+            },
+            icon: Image.asset(
+              "assets/img/menu.png",
+              width: 25,
+              height: 25,
+              fit: BoxFit.contain,
+            )),
+        title: Row(
+          children: [
+            Expanded(
+              child: Container(
+                height: 38,
+                decoration: BoxDecoration(
+                  color: const Color(0xff292E4B),
+                  borderRadius: BorderRadius.circular(19),
+                ),
+                child: TextField(
+                  controller: homeVM.txtSearch.value,
+                  decoration: InputDecoration(
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 20),
+                      prefixIcon: Container(
+                        margin: const EdgeInsets.only(left: 20),
+                        alignment: Alignment.centerLeft,
+                        width: 30,
+                        child: Image.asset(
+                          "assets/img/search.png",
+                          width: 20,
+                          height: 20,
+                          fit: BoxFit.contain,
+                          color: TColor.primaryText28,
+                        ),
+                      ),
+                      hintText: "Search album song",
+                      hintStyle: TextStyle(
+                        color: TColor.primaryText28,
+                        fontSize: 13,
+                      )),
+                ),
               ),
-              SizedBox(
-                height: size.height * .21,
-                child: ListView.builder(
+            )
+          ],
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const TitleSection(title: "Hot Recommended"),
+            SizedBox(
+              height: 190,
+              child: ListView.builder(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
                   itemCount: homeVM.hostRecommendedArr.length,
                   itemBuilder: (context, index) {
                     var mObj = homeVM.hostRecommendedArr[index];
                     return RecommendedCell(mObj: mObj);
-                  },
-                ),
-              ),
-              Divider(
-                color: Colors.white.withOpacity(0.07),
-                indent: 20,
-                endIndent: 20,
-              ),
-              ViewAllSection(
-                // buttonTxt: 'View All',
-                onPress: () {},
-                title: 'Playlist',
-              ),
-              SizedBox(
-                height: size.height * .22,
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  physics: const BouncingScrollPhysics(),
+                  }),
+            ),
+            Divider(
+              color: Colors.white.withOpacity(0.07),
+              indent: 20,
+              endIndent: 20,
+            ),
+            ViewAllSection(
+              title: "Playlist",
+              onPressed: () {},
+            ),
+            SizedBox(
+              height: 160,
+              child: ListView.builder(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                   scrollDirection: Axis.horizontal,
                   itemCount: homeVM.playListArr.length,
                   itemBuilder: (context, index) {
                     var mObj = homeVM.playListArr[index];
                     return PlaylistCell(mObj: mObj);
-                  },
-                ),
-              ),
-              Divider(
-                color: Colors.white.withOpacity(0.07),
-                indent: 20,
-                endIndent: 20,
-              ),
-              ViewAllSection(
-                title: 'Recently Played',
-                // buttonTxt: 'View more',
-                onPress: () {},
-              ),
-              SizedBox(
-                height: size.height * .24,
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: homeVM.recentlyPlayedArr.length,
-                  itemBuilder: (context, index) {
-                    var sObj = homeVM.recentlyPlayedArr[index];
-                    return SongRow(
-                      sObj: sObj,
-                      onPressPlay: () {},
-                      onPressed: () {},
-                    );
-                  },
-                ),
-              )
-            ],
-          ),
+                  }),
+            ),
+            Divider(
+              color: Colors.white.withOpacity(0.07),
+              indent: 20,
+              endIndent: 20,
+            ),
+            ViewAllSection(
+              title: "Recently Played",
+              onPressed: () {},
+            ),
+            ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                itemCount: homeVM.recentlyPlayedArr.length,
+                itemBuilder: (context, index) {
+                  var sObj = homeVM.recentlyPlayedArr[index];
+                  return SongsRow(
+                    sObj: sObj,
+                    onPressed: () {},
+                    onPressedPlay: () {},
+                  );
+                })
+          ],
         ),
       ),
     );

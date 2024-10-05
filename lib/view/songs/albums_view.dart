@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_app/view/songs/album_cell.dart';
-import 'package:music_app/view/songs/album_details.dart';
-import 'package:music_app/view_model/albums_view_model.dart';
+
+import '../../common_widget/album_cell.dart';
+import '../../view_model/albums_view_model.dart';
+import 'album_details_view.dart';
 
 class AlbumsView extends StatefulWidget {
   const AlbumsView({super.key});
@@ -16,30 +18,35 @@ class _AlbumsViewState extends State<AlbumsView> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    var media = MediaQuery.sizeOf(context);
 
-    double cellWidth = (size.width - 40 - 20) * 0.5;
+    var cellWidth = (media.width - 40.0 - 20.0) * 0.5;
+
     return Scaffold(
-      body: Obx(() => GridView.builder(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: cellWidth / (cellWidth + 50),
-            mainAxisSpacing: 20,
-            // mainAxisExtent: 20,
-            crossAxisSpacing: 10,
-          ),
-          itemCount: albumVM.allList.length,
-          itemBuilder: (context, index) {
-            var aObj = albumVM.allList[index];
-            return AlbumCell(
-              onPressed: () {
-                Get.to(() => const AlbumDetailsView());
-              },
-              onPressedMenu: (selectedIndex) {},
-              aObj: aObj,
-            );
-          })),
+      body: Obx(
+        () => GridView.builder(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: cellWidth / (cellWidth + 45.0),
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 10),
+            itemCount: albumVM.allList.length,
+            itemBuilder: (context, index) {
+              var aObj = albumVM.allList[index];
+              return AlbumCell(
+                aObj: aObj,
+                onPressed: () {
+                  Get.to(() => const AlbumDetailsView());
+                },
+                onPressedMenu: (selectIndex) {
+                  if (kDebugMode) {
+                    print(index);
+                  }
+                },
+              );
+            }),
+      ),
     );
   }
 }
